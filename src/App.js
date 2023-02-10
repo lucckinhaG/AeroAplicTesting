@@ -39,9 +39,9 @@ export default function App() {
   const currentDate = moment().format('LLL');
 
 
-  const [prod, setProd] = useState([]);
+  const [prod, setProd] = useState([])
 
-  const [lista, setLista] = useState([]);
+  const [lista, setLista] = useState('');
 
   async function AddNovoProduto() {
     if (fazenda === '' || area === '' || havoo === '' || produto === '' || doseha === '') {
@@ -75,35 +75,25 @@ export default function App() {
     }
   }
 
-  async function ListarProdutos() {
-    const realm = await getRealm();
-
-    try {
-      const response = realm.objects("Products");
-
-      setLista(response);
-      console.log(lista);
-
-    } catch {
-      alert("Não foi possível carregar os produtos!");
-    } finally {
-      realm.close();
-    }
-  }
-
   useEffect(() => {
     async function loadProdutos() {
       const realm = await getRealm();
 
-      const data = realm.objects('Products');
+      const data = realm.objects("Products").toJSON();
 
-      setLista(data, 'Products');
+      setLista(data);
+
+      lista.map(i => {
+
+        console.log(i._id)
+        console.log(i.produto)
+        console.log(i.doseha)
+        console.log(i.completa)
+      });
     }
-
     loadProdutos();
 
-
-  }, [lista])
+  }, [])
 
 
   return (
@@ -200,12 +190,9 @@ export default function App() {
         <View style={styles.containerResult}>
           <FlatList
             showsVerticalScrollIndicator={false}
-            data={[
-              { produto: 'super gun', doseha: '0.05', completa: '5', incompleta: '3' },
-              { produto: 'aureo', doseha: '0.08', completa: '7', incompleta: '4' }
-            ]}
-            keyExtractor={(item) => item._id}
-            renderItem={({ item }) => <Lista data={item} />}
+            data={lista}
+            keyExtractor={item => String(item._id)}
+            renderItem={({ item }) => (<Lista data={item} />)}
           />
         </View>
 

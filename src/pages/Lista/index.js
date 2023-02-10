@@ -1,28 +1,23 @@
 import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 
-export default function Lista(props) {
+export default function Lista({ data }) {
 
     function testando() {
         console.log(data);
     }
 
     return (
-        <SafeAreaView style={styles.container}>
-            <View style={styles.containerLista}>
-                <Text style={styles.itemTitle}>{props.data.produto}</Text>
-                <Text style={styles.item}>{props.data.doseha}</Text>
-                <Text style={styles.item}>{props.data.completa}</Text>
-                <Text style={styles.item}>{props.data.incompleta}</Text>
-            </View>
+        <SafeAreaView style={styles.containerLista}>
+            <Text style={styles.itemTitle}>{data.produto}</Text>
+            <Text style={styles.item}>{data.doseha}</Text>
+            <Text style={styles.item}>{data.completa}</Text>
+            <Text style={styles.item}>{data.incompleta}</Text>
         </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    },
     containerLista: {
         flexDirection: 'row',
         margin: 5,
