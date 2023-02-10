@@ -41,7 +41,7 @@ export default function App() {
 
   const [prod, setProd] = useState([])
 
-  const [lista, setLista] = useState('');
+  const [lista, setLista] = useState([]);
 
   async function AddNovoProduto() {
     if (fazenda === '' || area === '' || havoo === '' || produto === '' || doseha === '') {
